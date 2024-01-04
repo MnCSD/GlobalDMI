@@ -142,6 +142,8 @@ export default function Dashboard() {
           >
             Delete
           </button>
+
+          <div className="text-white">{data[0]?.GPSLatitude}</div>
         </div>
 
         {data && (
