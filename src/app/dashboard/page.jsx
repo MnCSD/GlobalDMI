@@ -60,16 +60,20 @@ export default function Dashboard() {
           await setDoc(newImageRef, {
             url: downloadURL,
             description: "",
-            address: address,
+            address: address || "No Address",
             date: format(new Date(data[0]?.DateTimeOriginal), "dd/MM/yyyy"),
-            width: data[0]?.ExifImageWidth,
-            height: data[0]?.ExifImageHeight,
-            name: files.name,
-            email: user.email,
-          }).then(() => {
-            toast("Image Uploaded Successfully");
-            router.push("/");
-          });
+            width: data[0]?.ExifImageWidth || "No Width",
+            height: data[0]?.ExifImageHeight || "No Height",
+            name: files.name || "No Name",
+            email: user.email || "No Email",
+          })
+            .then(() => {
+              toast("Image Uploaded Successfully");
+              router.push("/");
+            })
+            .catch((error) => {
+              toast("Error Uploading Image");
+            });
         });
       }
     );
