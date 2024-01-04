@@ -68,7 +68,7 @@ export default function Home() {
       {/*Body*/}
       <div className="flex items-center justify-center flex-wrap md:gap-x-10 mt-10 p-10 gap-y-10">
         {data.map((item) => (
-          <div className="border border-blue-500 relative">
+          <div className="border border-blue-500 relative" key={item.url}>
             <img src={item.url} alt="" className="w-[500px]" />
 
             <div className="absolute bg-white/50 w-[100%] bottom-0 left-0">
