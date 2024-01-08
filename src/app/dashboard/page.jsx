@@ -21,6 +21,8 @@ export default function Dashboard() {
   const [imgUrl, setImgUrl] = useState(null);
   const [progresspercent, setProgresspercent] = useState(0);
   const [user, setUser] = useState(null);
+  const [name ,setName] = useState("")
+  const [description, setDescription] = useState("")
   const router = useRouter();
 
   useEffect(() => {
@@ -59,12 +61,12 @@ export default function Dashboard() {
           const newImageRef = doc(collection(db, "images"));
           await setDoc(newImageRef, {
             url: downloadURL,
-            description: "",
+            description: description || "",
             address: address || "No Address",
             date: format(new Date(data[0]?.DateTimeOriginal), "dd/MM/yyyy"),
             width: data[0]?.ExifImageWidth || "No Width",
             height: data[0]?.ExifImageHeight || "No Height",
-            name: files.name || "No Name",
+            name: name || "",
             email: user.email || "No Email",
           })
             .then(() => {
@@ -143,7 +145,7 @@ export default function Dashboard() {
             Delete
           </button>
 
-          <div className="text-white">{data[0]?.GPSLatitude}</div>
+          {/* <div className="text-white">{data[0]?.GPSLatitude}</div> */}
         </div>
 
         {data && (
@@ -166,7 +168,18 @@ export default function Dashboard() {
 
             <input
               type="textarea"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="Description"
+              className="border border-gray-400 py-3 pl-3 rounded-xl md:w-[400px] w-[300px] focus:outline-0 text-black"
+            />
+
+            
+              <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              placeholder="Name"
               className="border border-gray-400 py-3 pl-3 rounded-xl md:w-[400px] w-[300px] focus:outline-0 text-black"
             />
 
