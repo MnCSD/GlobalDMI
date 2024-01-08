@@ -5,11 +5,13 @@ import { auth, db } from "../../firebase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { collection, getDocs } from "firebase/firestore";
+import { BarLoader, ClipLoader } from "react-spinners";
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const router = useRouter();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -29,6 +31,8 @@ export default function Home() {
     });
 
     setData(imagesData);
+
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -66,28 +70,35 @@ export default function Home() {
       </h2>
 
       {/*Body*/}
-      <div className="flex items-center justify-center flex-wrap md:gap-x-10 mt-10 p-10 gap-y-10">
-        {data.map((item) => (
-          <div className="border border-blue-500 relative" key={item.url}>
-            <img src={item.url} alt="" className="w-[500px]" />
 
-            <div className="absolute bg-white/50 w-[100%] bottom-0 left-0">
-              <h3 className="text-center font-semibold text-xl">{item.name}</h3>
-              <p className="text-center font-semibold text-sm">
-                {item.description}
-              </p>
-
-              <div className="flex items-center justify-center">
-                <span>Location: {item.address}</span>
-              </div>
-
-              <div className="flex items-center justify-center">
-                <span>Date: {item.date}</span>
+          {loading ? (
+            <div className="flex items-center justify-center mt-[150px]">
+              <ClipLoader color="#3B82F6" size={40}/>
+            </div>
+          ) : ( <div className="flex items-center justify-center flex-wrap md:gap-x-10 mt-10 p-10 gap-y-10">
+          {data.map((item) => (
+            <div className="border border-blue-500 relative rounded-lg" key={item.url}>
+              <img src={item.url} alt="" className="w-[500px] h-[400px] object-cover rounded-lg" />
+  
+              <div className="absolute bg-white/50 w-[100%] bottom-0 left-0">
+                <h3 className="text-center font-semibold text-xl">{item.name}</h3>
+                <p className="text-center font-semibold text-sm">
+                  {item.description}
+                </p>
+  
+                <div className="flex items-center justify-center">
+                  <span>Location: {item.address.substring(9)}</span>
+                </div>
+  
+                <div className="flex items-center justify-center">
+                  <span>Date: {item.date}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>)}
+          
+     
     </main>
   );
 }
