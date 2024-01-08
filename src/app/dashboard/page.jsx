@@ -155,7 +155,7 @@ export default function Dashboard() {
             </div>
 
             <div className="border border-gray-400 h-[40px] pl-3 flex items-center rounded-xl md:w-[400px] w-[300px] bg-transparent">
-              {address}
+              {address.substring(9)}
             </div>
 
             <div className="border border-gray-400 h-[40px] pl-3 rounded-xl flex items-center md:w-[400px] w-[300px] bg-transparent">
