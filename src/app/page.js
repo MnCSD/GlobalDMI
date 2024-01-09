@@ -18,7 +18,7 @@ export default function Home() {
       if (user && user?.emailVerified) {
         setUser(user);
       } else {
-        router.push("/register")
+        // router.push("/register")
       }
     });
   }, []);
@@ -43,11 +43,11 @@ export default function Home() {
   }, []);
 
 
-  if(!user) return (
-    <div className="flex items-center justify-center text-center text-2xl">
-      You have to be verified to access this page.
-    </div>
-  )
+  // if(!user) return (
+  //   <div className="flex items-center justify-center text-center text-2xl">
+  //     You have to be verified to access this page.
+  //   </div>
+  // )
 
   return (
     <main className=" min-h-screen bg-[#0F0F0F]">
