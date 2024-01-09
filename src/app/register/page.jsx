@@ -2,15 +2,18 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { createUserWithEmailAndPassword  } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification  } from "firebase/auth";
 import {auth} from "../../../firebase"
 import Link from 'next/link';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [popupVerify, setPopupVerify] = useState(false)
   const router = useRouter()
 
   const register = () => {
@@ -21,14 +24,22 @@ export default function Home() {
       // Signed up 
       const user = userCredential.user;
 
-      router.push("/dashboard")
+      setPopupVerify(true)
+
+      
+        sendEmailVerification(auth.currentUser)
+        .then(() => {
+            console.log("Email Verification Sent!")
+        });
+
+    //   router.push("/dashboard")
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
 
-      console.log(errorMessage)
+      toast.error(errorMessage)
       // ..
     });
   }
@@ -45,6 +56,8 @@ export default function Home() {
     const user = result.user;
     // IdP data available using getAdditionalUserInfo(result)
 
+
+
     router.push("/dashboard")
     // ...
   }).catch((error) => {
@@ -59,10 +72,13 @@ export default function Home() {
   });
   }
 
+
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-[#0F0F0F]">
 
-      <div className='flex flex-col items-center justify-center bg-black md:p-32 rounded-xl w-[350px] p-4 py-10 md:w-[500px]'>
+
+        {!popupVerify ? ( <div className='flex flex-col items-center justify-center bg-black md:p-32 rounded-xl w-[350px] p-4 py-10 md:w-[500px]'>
       <h1 className='text-[48px] text-white font-semibold font-sans'>Register</h1>
 
 <div className="flex flex-col items-center justify-center space-y-8 w-[100%] mt-10">
@@ -87,7 +103,10 @@ export default function Home() {
 <div className='w-[100%] text-center'>
   <span className='text-gray-500 w-[100%]'>Already have an account? <Link href="/login" className='text-blue-400'>Login</Link></span>
 </div>
-      </div>
+      </div>) : (
+        <div className='flex flex-col items-center justify-center bg-black md:p-10 md:py-20 rounded-xl w-[350px] p-4 py-2 md:w-[500px] text-center text-2xl'>An email verification has been sent to your email.</div>
+      )}
+     
 
      
     </main>

@@ -148,14 +148,14 @@ export default function Dashboard() {
           {/* <div className="text-white">{data[0]?.GPSLatitude}</div> */}
         </div>
 
-        {data && (
+        {data.length !== 0 && files && (
           <div className="flex space-y-3 flex-col">
             <div className="border border-gray-400 h-[40px] flex items-center pl-3 rounded-xl md:w-[400px] w-[300px] bg-transparent text-white">
               {data[0]?.ExifImageWidth} x {data[0]?.ExifImageHeight}
             </div>
 
             <div className="border border-gray-400 h-[40px] pl-3 flex items-center rounded-xl md:w-[400px] w-[300px] bg-transparent">
-              {address.substring(9)}
+              {address?.substring(9)}
             </div>
 
             <div className="border border-gray-400 h-[40px] pl-3 rounded-xl flex items-center md:w-[400px] w-[300px] bg-transparent">
@@ -166,7 +166,12 @@ export default function Dashboard() {
               )}
             </div>
 
-            <input
+            
+          </div>
+        )}
+
+
+<input
               type="textarea"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -189,8 +194,6 @@ export default function Dashboard() {
             >
               Upload
             </button>
-          </div>
-        )}
       </div>
     </main>
   );

@@ -15,12 +15,15 @@ export default function Home() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && user?.emailVerified) {
         setUser(user);
       } else {
+        router.push("/register")
       }
     });
   }, []);
+
+  
 
   const getData = async () => {
     const imagesData = [];
@@ -38,6 +41,13 @@ export default function Home() {
   useEffect(() => {
     getData();
   }, []);
+
+
+  if(!user) return (
+    <div className="flex items-center justify-center text-center text-2xl">
+      You have to be verified to access this page.
+    </div>
+  )
 
   return (
     <main className=" min-h-screen bg-[#0F0F0F]">

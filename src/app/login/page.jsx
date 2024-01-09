@@ -7,6 +7,8 @@ import { auth } from "../../../firebase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -24,7 +26,8 @@ export default function Login() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(error);
+        
+        toast.error(errorMessage)
       });
   };
 
