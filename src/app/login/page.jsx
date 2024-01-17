@@ -103,7 +103,7 @@ export default function Login() {
               alt=""
             />
 
-            <span>Sign in with Google</span>
+            <span className="text-white">Sign in with Google</span>
           </button>
         </div>
 

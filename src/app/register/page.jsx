@@ -94,7 +94,7 @@ export default function Home() {
     <button className='flex items-center border border-blue-400 rounded-lg p-2 py-3 w-[300px] justify-center space-x-2' onClick={googleSignup}>
         <img className='w-7 h-7' src="https://static.vecteezy.com/system/resources/previews/013/948/549/original/google-logo-on-transparent-white-background-free-vector.jpg" alt="" />
         
-        <span>
+        <span className='text-white'>
         Sign in with Google
         </span>
         </button>
@@ -104,7 +104,7 @@ export default function Home() {
   <span className='text-gray-500 w-[100%]'>Already have an account? <Link href="/login" className='text-blue-400'>Login</Link></span>
 </div>
       </div>) : (
-        <div className='flex flex-col items-center justify-center bg-black md:p-10 md:py-20 rounded-xl w-[350px] p-4 py-2 md:w-[500px] text-center text-2xl'>An email verification has been sent to your email.</div>
+        <div className='flex flex-col items-center justify-center bg-black md:p-10 md:py-20 rounded-xl w-[350px] p-4 py-2 md:w-[500px] text-center text-2xl text-white'>An email verification has been sent to your email.</div>
       )}
      
 

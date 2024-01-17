@@ -88,7 +88,7 @@ export default function Home() {
           ) : ( <div className="flex items-center justify-center flex-wrap md:gap-x-10 mt-10 p-10 gap-y-10">
           {data.map((item) => (
             <div className="border border-blue-500 relative rounded-lg" key={item.url}>
-              <img src={item.url} alt="" className="w-[500px] h-[400px] object-cover rounded-lg" />
+              <img src={item.url} alt="" className="w-[300px] h-[200px] object-cover rounded-lg" />
   
               <div className="absolute bg-white/50 w-[100%] bottom-0 left-0">
                 <h3 className="text-center font-semibold text-xl">{item.name}</h3>
@@ -96,7 +96,7 @@ export default function Home() {
                   {item.description}
                 </p>
   
-                <div className="flex items-center justify-center">
+                <div className="text-center">
                   <span>Location: {item.address.substring(9)}</span>
                 </div>
   

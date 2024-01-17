@@ -23,6 +23,7 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [name ,setName] = useState("")
   const [description, setDescription] = useState("")
+  const [country, setCountry] = useState("")
   const router = useRouter();
 
   useEffect(() => {
@@ -68,6 +69,7 @@ export default function Dashboard() {
             height: data[0]?.ExifImageHeight || "No Height",
             name: name || "",
             email: user.email || "No Email",
+            country: country
           })
             .then(() => {
               toast("Image Uploaded Successfully");
@@ -118,6 +120,10 @@ export default function Dashboard() {
                   ).then((res) => res.json())
                 )
               );
+
+              var result = res[0]?.plus_code?.compound_code.split(",",-1);
+
+              setCountry(result[result.length-1])
 
               setAddress(res[0]?.plus_code?.compound_code);
             }}
